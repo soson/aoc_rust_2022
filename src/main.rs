@@ -1,6 +1,7 @@
 mod solutions;
 use solutions::day1;
 use solutions::day2;
+use solutions::day3;
 
 fn main() {
     let input = std::fs::read_to_string("data/input1.txt").expect("no input file found");
@@ -17,4 +18,11 @@ fn main() {
     println!("=== Day 2:");
     println!("game result strategy1: {}", game_result);
     println!("game result strategy2: {}", game_result2);
+
+    let input = std::fs::read_to_string("data/input3.txt").expect("no input file found");
+    let priority_sum1 = day3::sum_priorities(&input);
+    let priority_sum2 = day3::sum_badges(&input);
+    println!("=== Day 3:");
+    println!("priority sum1: {}", priority_sum1);
+    println!("priority sum2: {}", priority_sum2);
 }
