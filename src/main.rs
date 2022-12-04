@@ -2,6 +2,7 @@ mod solutions;
 use solutions::day1;
 use solutions::day2;
 use solutions::day3;
+use solutions::day4;
 
 fn main() {
     let input = std::fs::read_to_string("data/input1.txt").expect("no input file found");
@@ -25,4 +26,11 @@ fn main() {
     println!("=== Day 3:");
     println!("priority sum1: {}", priority_sum1);
     println!("priority sum2: {}", priority_sum2);
+
+    let input = std::fs::read_to_string("data/input4.txt").expect("no input file found");
+    let assignments1 = day4::count_fully_contained_assignments(&input);
+    let assignments2 = day4::count_partially_contained_assignments(&input);
+    println!("=== Day 4:");
+    println!("fully contained assignments: {}", assignments1);
+    println!("partially contained assignments: {}", assignments2);
 }
