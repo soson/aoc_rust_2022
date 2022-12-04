@@ -14,38 +14,39 @@ fn parse_assignment_pair(s: &str) -> AssignmentPair {
     (result[0], result[1])
 }
 
-pub fn get_assignments(input: &str) -> Vec<AssignmentPair> {
+fn get_assignments(input: &str) -> Vec<AssignmentPair> {
     input.lines().map(|l| parse_assignment_pair(l)).collect()
 }
 
-pub fn count_fully_contained_assignments(input: &str) -> u32 {
+fn fully_contained_predicate(pair: &AssignmentPair) -> bool {
+    let (a, b) = pair;
+    if (a.0 <= b.0 && a.1 >= b.1) || (b.0 <= a.0 && b.1 >= a.1) {
+        true
+    } else {
+        false
+    }
+}
+
+fn partially_contained_predicate(pair: &AssignmentPair) -> bool {
+    let (a, b) = pair;
+    if a.1 >= b.0 && a.0 <= b.1 {
+        true
+    } else {
+        false
+    }
+}
+
+fn count_filtered_assignments(input: &str, p: impl Fn(&AssignmentPair) -> bool) -> u32 {
     let assignments = get_assignments(input);
-    let filtered: Vec<AssignmentPair> = assignments
-        .into_iter()
-        .filter(|(a, b)| {
-            if (a.0 <= b.0 && a.1 >= b.1) || (b.0 <= a.0 && b.1 >= a.1) {
-                true
-            } else {
-                false
-            }
-        })
-        .collect();
+    let filtered: Vec<AssignmentPair> = assignments.into_iter().filter(|a| p(a)).collect();
     filtered.len() as u32
 }
 
+pub fn count_fully_contained_assignments(input: &str) -> u32 {
+    count_filtered_assignments(input, fully_contained_predicate)
+}
 pub fn count_partially_contained_assignments(input: &str) -> u32 {
-    let assignments = get_assignments(input);
-    let filtered: Vec<AssignmentPair> = assignments
-        .into_iter()
-        .filter(|(a, b)| {
-            if a.1 >= b.0 && a.0 <= b.1 {
-                true
-            } else {
-                false
-            }
-        })
-        .collect();
-    filtered.len() as u32
+    count_filtered_assignments(input, partially_contained_predicate)
 }
 
 #[cfg(test)]
