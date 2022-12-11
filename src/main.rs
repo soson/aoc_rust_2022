@@ -3,6 +3,7 @@ use solutions::day1;
 use solutions::day2;
 use solutions::day3;
 use solutions::day4;
+use solutions::day5;
 
 fn main() {
     let input = std::fs::read_to_string("data/input1.txt").expect("no input file found");
@@ -33,4 +34,11 @@ fn main() {
     println!("=== Day 4:");
     println!("fully contained assignments: {}", assignments1);
     println!("partially contained assignments: {}", assignments2);
+
+    let input = std::fs::read_to_string("data/input5.txt").expect("no input file found");
+    let top_boxes = day5::get_top_boxes(&input).unwrap();
+    let top_boxes2 = day5::get_top_boxes2(&input).unwrap();
+    println!("=== Day 5:");
+    println!("top boxes1: {}", top_boxes);
+    println!("top boxes2: {}", top_boxes2);
 }
