@@ -5,6 +5,8 @@ use solutions::day3;
 use solutions::day4;
 use solutions::day5;
 
+use crate::solutions::day6::get_start_of_packet;
+
 fn main() {
     let input = std::fs::read_to_string("data/input1.txt").expect("no input file found");
     let summary = day1::get_calories_summary(&input);
@@ -41,4 +43,11 @@ fn main() {
     println!("=== Day 5:");
     println!("top boxes1: {}", top_boxes);
     println!("top boxes2: {}", top_boxes2);
+
+    let input = std::fs::read_to_string("data/input6.txt").expect("no input file found");
+    let processed_characters1 = get_start_of_packet(&input, 4);
+    let processed_characters2 = get_start_of_packet(&input, 14);
+    println!("=== Day 6:");
+    println!("processed characters1: {}", processed_characters1);
+    println!("processed characters2: {}", processed_characters2);
 }
